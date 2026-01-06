@@ -1,6 +1,8 @@
 # Delivery Workflow Overview
 
-The project ships with real Angular code that intentionally contains governance gaps.  
+> **Working Directory**: All commands should be run from `angular/governance`. Run `cd angular/governance` from the repository root before starting.
+
+The project ships with real Angular code that intentionally contains governance gaps.
 Work through the stages below to take the codebase from vulnerable to production ready while leaving an auditable trail.
 
 ## Stage 0 – Prepare & Align

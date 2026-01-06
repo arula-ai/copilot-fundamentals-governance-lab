@@ -1,6 +1,15 @@
 # GitHub Copilot Governance Lab – Spring Boot
 
-This repository contains a Spring Boot 3 project seeded with governance gaps so you can practice directing GitHub Copilot, documenting decisions, and delivering secure fixes end to end. Every stage of the lab focuses on pairing AI-assisted development with auditable evidence: plans, test results, reports, and code reviews.
+This directory contains a Spring Boot 3 project seeded with governance gaps so you can practice directing GitHub Copilot, documenting decisions, and delivering secure fixes end to end. Every stage of the lab focuses on pairing AI-assisted development with auditable evidence: plans, test results, reports, and code reviews.
+
+## Working Directory
+
+**Important**: All commands should be run from this directory (`java/governance`).
+
+```bash
+# From the repository root:
+cd java/governance
+```
 
 ## Prerequisites
 - JDK 17 (Temurin or equivalent)
@@ -11,9 +20,6 @@ This repository contains a Spring Boot 3 project seeded with governance gaps so 
 
 ## Quick Start
 ```bash
-git clone <repository-url>
-cd copilot-governance-lab-java
-
 # One-time setup (validates Java/Maven and runs mvn validate)
 ./scripts/setup-lab.sh
 

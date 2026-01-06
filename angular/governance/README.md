@@ -1,6 +1,15 @@
 # GitHub Copilot Governance Lab - Angular
 
-This repository contains an Angular project with intentionally vulnerable features for practicing GitHub Copilot governance end to end.
+This directory contains an Angular project with intentionally vulnerable features for practicing GitHub Copilot governance end to end.
+
+## Working Directory
+
+**Important**: All commands should be run from this directory (`angular/governance`).
+
+```bash
+# From the repository root:
+cd angular/governance
+```
 
 **Prerequisites:**
 - Node.js 18+
@@ -9,10 +18,6 @@ This repository contains an Angular project with intentionally vulnerable featur
 - Git
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd copilot-governance-lab-angular
-
 # Run setup script
 ./scripts/setup-lab.sh
 

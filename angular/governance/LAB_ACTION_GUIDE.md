@@ -1,5 +1,18 @@
 # Lab Action Guide
 
+## Working Directory
+
+**Important**: All commands in this guide should be run from the `angular/governance` directory.
+
+```bash
+# From the repository root, navigate to:
+cd angular/governance
+```
+
+Ensure your terminal and VS Code workspace are set to this directory before running any commands.
+
+---
+
 Follow these lean steps. After each stage, run Summarizer Mode with the Hand-Off prompt so progress lands in `docs/workflow-tracker.md`.
 
 ## Quick Reference

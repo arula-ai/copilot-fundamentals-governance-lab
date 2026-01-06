@@ -19,6 +19,15 @@ This repository contains intentionally problematic code for training purposes.
 
 ## Getting Started
 
+### Working Directory
+
+**Important**: All commands should be run from this directory (`java/foundations`).
+
+```bash
+# From the repository root:
+cd java/foundations
+```
+
 ### Prerequisites
 - Java 11 or higher
 - Maven 3.6 or higher
@@ -26,11 +35,10 @@ This repository contains intentionally problematic code for training purposes.
 - GitHub Copilot extension enabled
 
 ### Setup Instructions
-1. Clone this repository
-2. Navigate to the project directory
-3. Run `mvn clean install` to build the project
-4. Run `mvn spring-boot:run` to start the application
-5. Access H2 console at `http://localhost:8080/h2-console`
+1. Navigate to the project directory: `cd java/foundations`
+2. Run `mvn clean install` to build the project
+3. Run `mvn spring-boot:run` to start the application
+4. Access H2 console at `http://localhost:8080/h2-console`
 
 ### Running Tests
 ```bash

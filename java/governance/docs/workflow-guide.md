@@ -1,5 +1,7 @@
 # Delivery Workflow Overview (Spring Boot Track)
 
+> **Working Directory**: All commands should be run from `java/governance`. Run `cd java/governance` from the repository root before starting.
+
 The Java edition of the Copilot Governance Lab ships with intentionally vulnerable Spring Boot components. Your mission is to move the codebase from insecure to audit-ready while documenting every decision, command, and validation step. Follow the stages below, using the dedicated Copilot agents to keep evidence organised.
 
 ## Stage 0 – Prepare & Align

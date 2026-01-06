@@ -25,6 +25,15 @@ This repository contains intentionally problematic code for training purposes.
 
 ## Getting Started
 
+### Working Directory
+
+**Important**: All commands should be run from this directory (`angular/foundations`).
+
+```bash
+# From the repository root:
+cd angular/foundations
+```
+
 ### Prerequisites
 - Node.js 16+ and npm 8+
 - Angular CLI 15+
@@ -32,11 +41,10 @@ This repository contains intentionally problematic code for training purposes.
 - GitHub Copilot extension enabled
 
 ### Setup Instructions
-1. Clone this repository
-2. Navigate to the project directory
-3. Run `npm install` to install dependencies
-4. Run `ng serve` to start the development server
-5. Access the application at `http://localhost:4200`
+1. Navigate to the project directory: `cd angular/foundations`
+2. Run `npm install` to install dependencies
+3. Run `ng serve` to start the development server
+4. Access the application at `http://localhost:4200`
 
 ### Running Tests
 ```bash
