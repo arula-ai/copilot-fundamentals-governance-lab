@@ -1,0 +1,91 @@
+version: 2
+updates:
+  # Angular dependencies (npm)
+  - package-ecosystem: "npm"
+    directory: "/angular/foundations"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "automated"
+      - "angular"
+    commit-message:
+      prefix: "chore(angular-foundations)"
+      include: "scope"
+    reviewers:
+      - "arula-ai"
+    assignees:
+      - "arula-ai"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "npm"
+    directory: "/angular/governance"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "automated"
+      - "angular"
+    commit-message:
+      prefix: "chore(angular-governance)"
+      include: "scope"
+    reviewers:
+      - "arula-ai"
+    assignees:
+      - "arula-ai"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # Java dependencies (Maven)
+  - package-ecosystem: "maven"
+    directory: "/java/foundations"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "automated"
+      - "java"
+    commit-message:
+      prefix: "chore(java-foundations)"
+      include: "scope"
+    reviewers:
+      - "arula-ai"
+    assignees:
+      - "arula-ai"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "maven"
+    directory: "/java/governance"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "automated"
+      - "java"
+    commit-message:
+      prefix: "chore(java-governance)"
+      include: "scope"
+    reviewers:
+      - "arula-ai"
+    assignees:
+      - "arula-ai"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

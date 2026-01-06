@@ -1,0 +1,51 @@
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist
+/out-tsc
+/bazel-out
+
+# Testing
+/coverage
+*.lcov
+
+# IDEs
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+*.swp
+*.swo
+*~
+
+# Misc
+.DS_Store
+Thumbs.db
+.angular/cache
+.sass-cache
+/connect.lock
+/libpeerconnection.log
+testem.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Git
+.git
+.gitignore
+
+# Documentation (keep in container)
+# README.md
+# CONTRIBUTING.md
+# LICENSE
+
+# Reports
+governance-report.md

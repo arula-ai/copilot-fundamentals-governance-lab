@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/arula-ai/copilot-governance-lab-angular/discussions
+    about: Ask questions and discuss with the community
+  - name: Security Vulnerability (Unintentional)
+    url: https://github.com/arula-ai/copilot-governance-lab-angular/security/advisories/new
+    about: Report a security vulnerability (not one of the intentional lab vulnerabilities)

@@ -1,0 +1,32 @@
+# Build artifacts
+target
+*.jar
+*.war
+
+# IDEs
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+*.swp
+*.swo
+*~
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Git
+.git
+.gitignore
+
+# Reports
+governance-report.md

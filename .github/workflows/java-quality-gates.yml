@@ -1,0 +1,70 @@
+name: Java Quality Gates
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'java/**'
+
+jobs:
+  quality-checks-foundations:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: java/foundations
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: '17'
+        cache: maven
+
+    - name: Maven verify (tests + static analysis)
+      run: mvn -B verify
+
+    - name: Package application
+      run: mvn -B package
+
+    - name: Generate dependency tree
+      run: mvn -B dependency:tree
+
+    - name: Check for TODO comments
+      run: |
+        if grep -R "TODO" src/main/java src/test/java; then
+          echo "Warning: TODO comments found in source code"
+        fi
+
+  quality-checks-governance:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: java/governance
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: '17'
+        cache: maven
+
+    - name: Maven verify (tests + static analysis)
+      run: mvn -B verify
+
+    - name: Package application
+      run: mvn -B package
+
+    - name: Generate dependency tree
+      run: mvn -B dependency:tree
+
+    - name: Check for TODO comments
+      run: |
+        if grep -R "TODO" src/main/java src/test/java; then
+          echo "Warning: TODO comments found in source code"
+        fi

@@ -1,0 +1,52 @@
+{
+  "name": "copilot-foundations-lab1-angular",
+  "version": "0.0.0",
+  "description": "GitHub Copilot Foundations Lab 1 - Legacy Angular Code for Refactoring Practice",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "test:coverage": "ng test --code-coverage",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.2.0",
+    "@angular/common": "^15.2.0",
+    "@angular/compiler": "^15.2.0",
+    "@angular/core": "^15.2.0",
+    "@angular/forms": "^15.2.0",
+    "@angular/platform-browser": "^15.2.0",
+    "@angular/platform-browser-dynamic": "^15.2.0",
+    "@angular/router": "^15.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.2.0",
+    "@angular-eslint/builder": "^15.2.1",
+    "@angular-eslint/eslint-plugin": "^15.2.1",
+    "@angular-eslint/eslint-plugin-template": "^15.2.1",
+    "@angular-eslint/template-parser": "^15.2.1",
+    "@angular/cli": "~15.2.0",
+    "@angular/compiler-cli": "^15.2.0",
+    "@types/jasmine": "~4.3.0",
+    "@types/node": "^18.7.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "ng-mocks": "^14.12.0",
+    "tree-cli": "^0.6.7",
+    "typescript": "~4.9.0"
+  }
+}

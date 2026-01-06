@@ -1,0 +1,90 @@
+evaluation_tasks:
+  - task_id: "NG-SEC-001"
+    description: "Implement secure JWT interceptor"
+    prompt: |
+      Following our team instructions in .github/instructions/angular.instructions.md,
+      create an HTTP interceptor that:
+      1. Adds JWT token to requests
+      2. Handles token refresh
+      3. Catches 401 responses
+      4. Implements retry logic
+    expected_patterns:
+      - "implements HttpInterceptor"
+      - "Bearer token in Authorization header"
+      - "catchError operator"
+      - "retry logic"
+      - "token refresh handling"
+    anti_patterns:
+      - "localStorage for token"
+      - "console.log"
+      - "any type without justification"
+    success_criteria:
+      - "Attaches token correctly"
+      - "Handles 401 responses"
+      - "Refreshes expired tokens"
+      - "No token on public routes"
+      - "Proper error handling"
+
+  - task_id: "NG-FORM-002"
+    description: "Create secure form with validation"
+    prompt: |
+      Create a registration form component that:
+      1. Uses reactive forms
+      2. Implements custom validators
+      3. Sanitizes inputs
+      4. Prevents XSS
+      5. Shows validation errors
+    expected_patterns:
+      - "FormBuilder"
+      - "Validators.required"
+      - "Custom validator functions"
+      - "DomSanitizer"
+      - "Error messages in template"
+    anti_patterns:
+      - "innerHTML with user data"
+      - "eval or Function"
+      - "Direct DOM manipulation"
+    success_criteria:
+      - "Prevents XSS attacks"
+      - "Validates all fields"
+      - "Accessible error messages"
+      - "Type-safe form controls"
+
+  - task_id: "NG-GUARD-003"
+    description: "Implement role-based route guard"
+    prompt: |
+      Create a route guard that:
+      1. Checks user authentication
+      2. Verifies roles from server
+      3. Redirects unauthorized users
+      4. Caches role checks
+    expected_patterns:
+      - "implements CanActivate"
+      - "Observable<boolean>"
+      - "Router injection"
+      - "AuthService usage"
+      - "Server-side verification"
+    success_criteria:
+      - "Blocks unauthorized access"
+      - "Server-side role check"
+      - "Proper redirect logic"
+      - "Handles async operations"
+
+  - task_id: "NG-TEST-004"
+    description: "Generate comprehensive security tests"
+    prompt: |
+      Generate tests for AuthService that verify:
+      1. XSS prevention
+      2. Token handling
+      3. Logout cleanup
+      4. Error scenarios
+    expected_patterns:
+      - "TestBed.configureTestingModule"
+      - "HttpTestingController"
+      - "Multiple test cases"
+      - "Spy objects"
+    success_criteria:
+      - "Tests detect vulnerabilities"
+      - "Mocks HTTP calls"
+      - "Tests async operations"
+      - "Coverage > 80%"

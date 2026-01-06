@@ -1,0 +1,82 @@
+name: Angular Quality Gates
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'angular/**'
+
+jobs:
+  quality-checks-foundations:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: angular/foundations
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: angular/foundations/package-lock.json
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: TypeScript type checking
+      run: npx tsc --noEmit
+
+    - name: Lint check
+      run: npm run lint
+
+    - name: Run unit tests
+      run: npm run test:headless
+
+    - name: Build production
+      run: npm run build -- --configuration production
+
+    - name: Check for TODO comments
+      run: |
+        if grep -r "TODO" src/ --exclude-dir=node_modules; then
+          echo "Warning: TODO comments found in source code"
+        fi
+
+  quality-checks-governance:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: angular/governance
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: angular/governance/package-lock.json
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: TypeScript type checking
+      run: npx tsc --noEmit
+
+    - name: Lint check
+      run: npm run lint
+
+    - name: Run unit tests
+      run: npm run test:headless
+
+    - name: Build production
+      run: npm run build -- --configuration production
+
+    - name: Check for TODO comments
+      run: |
+        if grep -r "TODO" src/ --exclude-dir=node_modules; then
+          echo "Warning: TODO comments found in source code"
+        fi

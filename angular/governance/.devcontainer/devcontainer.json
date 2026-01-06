@@ -1,0 +1,75 @@
+{
+  "name": "Copilot Governance Lab - Angular",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:18-bullseye",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "firsttris.vscode-jest-runner",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "ms-vscode.vscode-typescript-next"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "eslint.validate": [
+          "javascript",
+          "typescript",
+          "html"
+        ],
+        "files.autoSave": "onFocusChange",
+        "github.copilot.enable": {
+          "*": true,
+          "yaml": true,
+          "plaintext": false,
+          "markdown": true,
+          "typescript": true,
+          "html": true
+        }
+      }
+    }
+  },
+
+  "postCreateCommand": "npm install && npm install -g @angular/cli@16",
+
+  "forwardPorts": [4200, 9876],
+  
+  "portsAttributes": {
+    "4200": {
+      "label": "Angular Dev Server",
+      "onAutoForward": "notify"
+    },
+    "9876": {
+      "label": "Karma Test Server",
+      "onAutoForward": "ignore"
+    }
+  },
+
+  "remoteUser": "node",
+  
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
+  ],
+
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "NG_CLI_ANALYTICS": "false"
+  }
+}
