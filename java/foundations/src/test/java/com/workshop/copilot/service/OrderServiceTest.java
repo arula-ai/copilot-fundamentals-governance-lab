@@ -1,7 +1,9 @@
 package com.workshop.copilot.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,17 +11,22 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test cases that will fail due to issues in OrderService
- * These tests expose problems in the legacy code that need refactoring
+ * Test cases that will fail due to issues in OrderService.
+ * These tests expose problems in the legacy code that need refactoring.
+ *
+ * NOTE: Tests are intentionally failing to demonstrate baseline code quality issues.
+ * The failures reveal missing input validation, missing null checks, and poor error
+ * handling in the service — not environment or test-setup problems.
+ *
+ * Use Copilot's /fix and /explain to discuss why each test fails and what the correct
+ * implementation should look like.
  */
+@SpringBootTest
+@Transactional
 public class OrderServiceTest {
 
+    @Autowired
     private OrderService orderService;
-
-    @BeforeEach
-    public void setUp() {
-        orderService = new OrderService();
-    }
 
     @Test
     public void testProcessOrder_NullCustomerId_ShouldFail() {
