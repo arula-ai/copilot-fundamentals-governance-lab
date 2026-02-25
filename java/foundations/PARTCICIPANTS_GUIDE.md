@@ -60,7 +60,7 @@
 23. Log new coverage numbers in `docs/NOTES.md`; highlight >10% improvements.
 
 ## Phase 5 · 13 min · Implement One Safe Refactor
-24. Open `REFACTOR_PLAN.md` and pick the lowest-risk step — typically null/input validation or a simple extraction, not a full API migration.
+24. Open `REFACTOR_PLAN.md` and pick the lowest-risk step.
 25. Ask Copilot Chat to implement that specific step:
     - `@workspace Implement Step [N] from my REFACTOR_PLAN.md on #DateUtils.java. Apply only that change — do not touch anything else.`
     Review the proposed diff carefully. Accept only if it matches your chosen step; if Copilot changed too much, ask it to narrow the scope before accepting.
