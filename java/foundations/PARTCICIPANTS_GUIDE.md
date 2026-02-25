@@ -50,26 +50,25 @@
 18. For each plan step, ask Copilot to generate verification criteria: `/explain For Step 1 above, how will I prove success via tests or metrics?`
 
 ## Phase 4 · 10 min · Test Generation Sprint
-19. Use Copilot `/tests Generate baseline unit tests for #DateUtils.java focusing on happy paths.`
+19. Before generating tests, verify actual method behavior first — this prevents Copilot from guessing wrong expected values:
+    `/explain For each public method in #DateUtils.java, what does it return for valid non-null inputs? Give one concrete input and output example per method.`
+    Then generate tests based on that confirmed behavior:
+    `/tests Based on the behavior you just described, generate JUnit 5 happy-path unit tests for #DateUtils.java.`
 20. Iterate: `/tests Add edge-case coverage for invalid dates, DST transitions, and leap years using JUnit 5.`
 21. For time-sensitive logic, prompt: `/tests Show how to test date calculations with #src/main/java/com/workshop/copilot/utils/DateUtils.java using java.time.Clock or fixed instants.`
-22. Run the suite (`#runInTerminal mvn test`); paste failing output back into Copilot with `/fix` to get remediation suggestions.
-    > **Note**: Some tests are intentionally failing to demonstrate baseline code quality issues. Use Copilot's `/fix` suggestions to resolve these as part of the learning process.
+22. Run the suite (`#runInTerminal mvn test`); for any failing test, paste just that test's error into Copilot with `/fix` — one at a time. Before accepting the fix, check what Copilot changed: if it updated only the test assertion, accept it. If it changed production code, that test found a real bug — reject the fix and note the finding in `docs/NOTES.md`.
 23. Log new coverage numbers in `docs/NOTES.md`; highlight >10% improvements.
 
 ## Phase 5 · 13 min · Implement One Safe Refactor
-24. Pick a `REFACTOR_PLAN.md` step with low risk.
-25. Before editing, ask Copilot inline with a comment tailored to your chosen step. Examples:
-    - For `java.time` migration / mutable state: `// Copilot: rewrite this method using java.time APIs and remove shared mutable state.`
-    - For duplicate code extraction: `// Copilot: extract the duplicated weekend/holiday check into a private helper method.`
-    - For null/validation fixes: `// Copilot: add null and empty input validation at the top of this method.`
-    Accept or adjust the suggestion before committing.
-26. When Copilot proposes changes, demand explanations tailored to your step. Examples:
-    - For `java.time` migration: `/explain Why did you choose java.time here? Are there any regressions to watch for?`
-    - For duplicate code extraction: `/explain Why did you place this helper here? Does it cover all call sites?`
-    - For null/validation fixes: `/explain What edge cases does this validation cover? What inputs could still slip through?`
-27. Keep diffs small; after each save, run `mvn test` or targeted Maven modules.
-28. If Copilot's change fails tests, use `/fix` with the failing stack trace to generate patches.
+24. Open `REFACTOR_PLAN.md` and pick the lowest-risk step — typically null/input validation or a simple extraction, not a full API migration.
+25. Ask Copilot Chat to implement that specific step:
+    - `@workspace Implement Step [N] from my REFACTOR_PLAN.md on #DateUtils.java. Apply only that change — do not touch anything else.`
+    Review the proposed diff carefully. Accept only if it matches your chosen step; if Copilot changed too much, ask it to narrow the scope before accepting.
+26. Before accepting, ask Copilot to justify the change:
+    - `@workspace /explain What did you change and why? What edge cases does this cover, and what could still slip through?`
+    If the explanation reveals gaps or unintended side effects, refine with a follow-up prompt before accepting.
+27. Keep diffs small; after each save, run `#runInTerminal mvn test`.
+28. If Copilot's change fails tests, paste just the failing stack trace into Copilot with `/fix` — one failure at a time.
 
 ## Phase 6 · 10 min · Documentation and PR Prep
 29. Ask Copilot: `/docs Generate Javadoc comments for the refactored public APIs using the project's conventions.`
