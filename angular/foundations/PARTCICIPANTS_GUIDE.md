@@ -19,13 +19,14 @@
 ## Phase 1 · 10 min · Baseline Metrics
 7. In Copilot Chat just type this: `#codebase`
 
-`#codebase` is a chat variable that references relevant context in your chat prompt. When used, it adds pertinent workspace content to your prompt. For example, asking "How do I build this `#codebase`?" will provide steps to build the project by analyzing documentation, scripts, and configurations. - 
+`#codebase` is a chat variable that references relevant context in your chat prompt. When used, it adds pertinent workspace content (such as files, configurations, and documentation) to your prompt. For example, asking "How do I build this `#codebase?`" will provide steps to build the project by analyzing your actual codebase.
 
-`@workspace` is a built-in chat participant that enhances chat interactions by providing domain-specific knowledge. For example, when you ask "`@workspace` how is authentication implemented?" it will provide an overview of the authentication flow with references to the relevant code.
+`@workspace` is a built-in chat participant that previously enhanced chat interactions by providing domain-specific knowledge of your project. For example, when you ask "`@workspace` how is authentication implemented?" it returns an overview of the authentication flow with references to relevant code. However, `@workspace` is now considered legacy and should be replaced with `#codebase`.
 
-- Used by itself, this is identical to @workspace. Both #codebase and `@workspace` can provide workspace context to Copilot
-- When `#codebase` is used with another chat participant (`@terminal`, `@vscode`, `@github` etc.), it provides context to that participant. You can only use one participant at a time, so that is why it is needed.
-- `#codebase` is still experimental, but the general consensus seem to be to just use `#codebase`. By itself it gives you your workspace context like you would want, and it can also be paired with any other chat participants (unlike `@workspace` which also requires a slash command and cannot be paired with any other participant)
+Used by itself, `#codebase` provides the same workspace context that `@workspace` previously offered.
+When `#codebase` is used with another chat participant (such as `@terminal`, `@vscode`, or `@github`), it passes workspace context to that participant. Since only one participant can be active at a time, #codebase enables context sharing in these scenarios.
+
+Slash commands `/` together with the `#codebase` variable to get context-aware assistance. Commands like `/explain`, `/fix`, `/tests`, `/doc`, and `/refactor` can be used directly in your prompt, and adding `#codebase` enriches the response by including relevant files, configurations, and project structure. For example, /explain this function #codebase enables Copilot to provide a deeper explanation that considers how the code fits within the overall application.
 
 8. Record baseline tests:
    - Angular: `#runInTerminal npx ng test --code-coverage --watch=false`
