@@ -12,21 +12,14 @@
 5. Fork the correct repo track:
    - Angular: `git clone https://github.com/arula-ai/copilot-foundations-lab-angular.git`
    - Java:    `git clone https://github.com/arula-ai/copilot-foundations-lab-java.git`
+6. Run `#runInTerminal npm install` (Angular) or `#runInTerminal mvn clean install -DskipTests`
 7. Run `#getProjectSetupInfo` to get general information about the project and how to set it up
     - you can also click the settings icon to generate the copilot-instructions.md file
-6. Run `#runInTerminal npm install` (Angular) or `#runInTerminal mvn clean install -DskipTests`
 
 ## Phase 1 · 10 min · Baseline Metrics
 7. In Copilot Chat just type this: `#codebase`
-
-`#codebase` is a chat variable that references relevant context in your chat prompt. When used, it adds pertinent workspace content (such as files, configurations, and documentation) to your prompt. For example, asking "How do I build this `#codebase?`" will provide steps to build the project by analyzing your actual codebase.
-
-`@workspace` is a built-in chat participant that previously enhanced chat interactions by providing domain-specific knowledge of your project. For example, when you ask "`@workspace` how is authentication implemented?" it returns an overview of the authentication flow with references to relevant code. However, `@workspace` is now considered legacy and should be replaced with `#codebase`.
-
-Used by itself, `#codebase` provides the same workspace context that `@workspace` previously offered.
-When `#codebase` is used with another chat participant (such as `@terminal`, `@vscode`, or `@github`), it passes workspace context to that participant. Since only one participant can be active at a time, #codebase enables context sharing in these scenarios.
-
-Slash commands `/` together with the `#codebase` variable to get context-aware assistance. Commands like `/explain`, `/fix`, `/tests`, `/doc`, and `/refactor` can be used directly in your prompt, and adding `#codebase` enriches the response by including relevant files, configurations, and project structure. For example, /explain this function #codebase enables Copilot to provide a deeper explanation that considers how the code fits within the overall application.
+Use `#codebase` with slash commands to keep prompts context-aware.
+Example: `/explain how does this function behave with #codebase context?`
 
 8. Record baseline tests:
    - Angular: `#runInTerminal npx ng test --code-coverage --watch=false`
@@ -37,17 +30,17 @@ Slash commands `/` together with the `#codebase` variable to get context-aware a
 
 ## Phase 2 · 10 min · Prompting Mastery
 11. Reference the main target file (e.g., `#date-helper.service.ts`) into Copilot Chat with this prompt:
-    - `@workspace /expalin this legacy #date-helper.service.ts file and any responsibilities,
+    - `/explain this legacy #date-helper.service.ts file and any responsibilities,
     external dependencies and hidden side effects.
 12. Follow up with the Critique then Create pattern:
-    - `@workspace /explain Analyze this #date-helper.service.ts for code smells, performance risks, and security issues. Organize findings by severity.`
+    - `/explain Analyze this #date-helper.service.ts for code smells, performance risks, and security issues. Organize findings by severity.`
 13. `Create RISKS.md, grouping items under Critical / High / Medium.`
 14. Run a targeted search (`#runInTerminal rg "DateHelperService" src`) to see usage of DateHelperService accorss the codebase:
     - `/explain From these call sites, what downstream impact should I watch for when refactoring?`
 15. Use Golden Example prompt: `/explain Show me an idiomatic Angular service test from this repo I can mirror.` Link the example Copilot returns.
 
 ## Phase 3 · 7 min · Refactor Plan with Copilot
-16. Ask Copilot: `@workspace /explain Create a numbered refactor plan for #date-helper.service.ts that addresses Critical items in #RISKS.md first, each with success criteria and required tests.`
+16. Ask Copilot: `/explain Create a numbered refactor plan for #date-helper.service.ts that addresses Critical items in #RISKS.md first, each with success criteria and required tests.`
 17. Paste the response into `REFACTOR_PLAN.md`;
 18. For each plan step, ask Copilot to generate verification criteria: `/explain For Step 1 above, how will I prove success via tests or metrics?`
 
@@ -74,25 +67,18 @@ Slash commands `/` together with the `#codebase` variable to get context-aware a
 
 28. If Copilot's change fails tests, use `/fix` with the failing stack trace to generate patches.
 
-## Phase 6 · 10 min · Documentation and PR Prep
-29. Ask Copilot: `Generate docstring comments for the refactored public APIs`
-30. Update `RISKS.md` with resolved items; prompt Copilot: ` Summarize which risks were mitigated by the refactor.`
-31. Generate a PR summary: `Draft a pull request description including summary, testing, coverage changes, and risk assessment.`
-32. Request release notes: `Create a short changelog entry for this refactor.` Append to `docs/CHANGELOG.md`.
-
-## Phase 7 · 5 min · Sharing & Wrap-Up
-33. Capture insights: `Summarize the prompt patterns that worked best for me today.` Append to `NOTES.md` under “Prompts That Worked.”
-34. Ask Copilot: `Produce a retrospective bullet list (Start/Stop/Continue) for my next session.` Save to `docs/session-notes/<date>.md`.
-35. Run `#runInTerminal git status`; ensure only intentional files changed.
-36. Stage and commit: `#runInTerminal git add .` → `#runInTerminal git commit -m "Lab: Refactor date helper with Copilot assistance"`.
-37. Push the branch and open a pull request. Paste Copilot’s PR draft into the description and edit as needed.
+## Foundations Closeout · 5 min · Handoff to Governance
+29. Add a short summary to `NOTES.md` describing what changed in Phase 5 and why.
+30. Record final test and coverage status in `NOTES.md` with links to output/report paths.
+31. Update `RISKS.md` with one unresolved risk that should be prioritized in governance.
+32. Add a handoff note: `Top governance target`, `why it matters`, and `evidence to revisit`.
 
 ---
 
 ## Quick Copilot Reference
 - **Critique then Create**: `/explain Analyze…` → `/fix Refactor…`
-- **Constrain by Interfaces**: `/fix Implementation must satisfy PaymentProcessor interface.`
-- **Golden Example**: `/explain Mirror this test style for OrderService.`
+- **Constrain by Public API**: `/fix Preserve existing service method signatures and return types.`
+- **Golden Example**: `/explain Mirror this test style for DateHelperService.`
 - **Slash Commands**: `/explain`, `/tests`, `/fix`
 - **Copilot variables**: `#codebase`, `#file:name`
 - **Shortcuts**: Copilot Chat (`Cmd+/` • `Alt+/`), Inline Suggestion (`Cmd+I` • `Ctrl+I`)
