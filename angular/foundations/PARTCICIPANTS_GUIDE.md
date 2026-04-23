@@ -16,6 +16,7 @@
 7. Run `#getProjectSetupInfo` to get general information about the project and how to set it up
     - you can also click the settings icon to generate the copilot-instructions.md file
 
+> **Suggestion**: For #runInTerminal prompts use the GPT mini or 0x models and save the premium token requests
 ## Phase 1 · 10 min · Baseline Metrics
 7. In Copilot Chat just type this: `#codebase`
 Use `#codebase` with slash commands to keep prompts context-aware.
