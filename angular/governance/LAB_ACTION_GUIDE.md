@@ -31,9 +31,9 @@ Use Summarizer Mode with the Hand-Off prompt at milestone stages (Stage 2, Stage
 | 8 | Optional: Validation → Agent ↔ Need Review | `SECURITY.md`, `homework/GRADING_RUBRIC.md`, PR template |
 
 ## Stage 0 – Environment Setup
-- Agent Mode: run one-time setup validation with `./scripts/setup-lab.sh`.
-- If script execution is unavailable, run manual checks: `node -v`, `npm -v`, and `npm run lint -- --help`.
-- Agent Mode: run `npm run start` (initial runtime issues are acceptable for baseline).
+- Run `./scripts/setup-lab.sh` in your terminal for one-time setup validation.
+- If script execution is unavailable, run manual checks in your terminal: `node -v`, `npm -v`, and `npm run lint -- --help`.
+- Run `npm run start` in your terminal (initial runtime issues are acceptable for baseline).
 
 No hand-off is required at this stage.
 
@@ -41,7 +41,7 @@ No hand-off is required at this stage.
 - First, make sure you are in Agent Mode.
 - Read `.github/instructions/angular.instructions.md` and Angular agent files only: `.github/agents/angular-*.agent.md`.
 - Inspect available tools (wrench icon) without changing settings
-- Testing Mode (angular-testing): run `npm run lint` and `npm run test:coverage`; log assumptions in `docs/test-coverage.md`.
+- Run `npm run lint` and `npm run test:coverage` in your terminal; log assumptions in `docs/test-coverage.md`.
 
 No hand-off is required at this stage.
 
@@ -61,7 +61,7 @@ No hand-off is required at this stage.
 
 ## Stage 4 – Security Test Generation
 - Planning Mode (optional): outline missing security coverage using `docs/testing-guide.md`
-- Testing Mode: run `npm run test:coverage` until ≥80% or documented rationale
+- Run `npm run test:coverage` in your terminal until ≥80% or documented rationale
 - Agent Mode: capture coverage deltas and evidence paths in `docs/test-coverage.md`
 - Hand-Off: `/hand-off` log executed suites, pass/fail status, remaining test work
 
@@ -74,8 +74,8 @@ No hand-off is required at this stage.
 No hand-off is required at this stage.
 
 ## Stage 6 – Governance Validation & Reporting
-- Testing Mode: run `npm run lint`, `npm run lint:security`, `npm run test:coverage`, `npm audit --audit-level=high` (or `./scripts/run-all-checks.sh`)
-- Testing Mode: execute `./scripts/generate-report.sh`; inspect `governance-report.md` in Agent Mode
+- Run in your terminal: `npm run lint`, `npm run lint:security`, `npm run test:coverage`, `npm audit --audit-level=high` (or `./scripts/run-all-checks.sh`)
+- Run `./scripts/generate-report.sh` in your terminal; inspect `governance-report.md` in Agent Mode
 - Agent Mode: refresh `VULNERABILITIES.md`, `FIXES.md`, `COPILOT_USAGE.md` with final status
 - Hand-Off: `/hand-off` state command results, report readiness, and outstanding risks.
 

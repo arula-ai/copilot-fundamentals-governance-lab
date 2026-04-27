@@ -32,9 +32,9 @@ Use Summarizer Mode with the Hand-Off prompt at milestone stages (Stage 2, Stage
 
 ## Stage 0 – Environment Setup
 
-- Agent Mode: run one-time setup validation with `./scripts/setup-lab.sh`.
-- If script execution is unavailable, run manual checks: `java -version`, `mvn -version`, and `mvn -B -q validate`.
-- Agent Mode: run `mvn spring-boot:run` (initial runtime issues are acceptable for baseline).
+- Run `./scripts/setup-lab.sh` in your terminal for one-time setup validation.
+- If script execution is unavailable, run manual checks in your terminal: `java -version`, `mvn -version`, and `mvn -B -q validate`.
+- Run `mvn spring-boot:run` in your terminal (initial runtime issues are acceptable for baseline).
 
 No hand-off is required at this stage.
 
@@ -50,7 +50,7 @@ No hand-off is required at this stage.
   Return a Stage 1 checklist.
   ```
 - Inspect available tools (wrench icon) without changing settings
-- Testing Mode (java-testing): run `mvn test` and `mvn verify`; log assumptions in `docs/test-coverage.md`.
+- Run `mvn test` and `mvn verify` in your terminal; log assumptions in `docs/test-coverage.md`.
 
 No hand-off is required at this stage.
 
@@ -103,7 +103,7 @@ No hand-off is required at this stage.
   Generate/update JUnit security tests from the Stage 4 plan.
   Summarize pass/fail, coverage, and remaining gaps for docs/test-coverage.md.
   ```
-- In Testing Mode, run `mvn verify` until >=80% or documented rationale.
+- Run `mvn verify` in your terminal until >=80% or documented rationale.
 - Switch to **Agent Mode** and capture coverage deltas and evidence paths in `docs/test-coverage.md`.
 - Hand-Off: run `/hand-off` (Summarizer Mode) and append to `docs/workflow-tracker.md` with executed suites, pass/fail status, and remaining test work.
 
@@ -139,8 +139,8 @@ No hand-off is required at this stage.
   Prepare the final Stage 6 validation runbook with command order,
   expected outputs, and evidence locations.
   ```
-- In Testing Mode, run: `mvn clean`, `mvn test`, `mvn verify`, `mvn dependency:tree` (or `./scripts/run-all-checks.sh`).
-- In Testing Mode, execute `./scripts/generate-report.sh`.
+- Run in your terminal: `mvn clean`, `mvn test`, `mvn verify`, `mvn dependency:tree` (or `./scripts/run-all-checks.sh`).
+- Run `./scripts/generate-report.sh` in your terminal.
 - Switch to **Agent Mode** and run:
   ```text
   Finalize governance docs (VULNERABILITIES.md, FIXES.md, COPILOT_USAGE.md, docs/workflow-tracker.md)
