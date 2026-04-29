@@ -14,13 +14,13 @@
    cd java/foundations
    ```
 6. Ask Copilot: `How do I build and run this project? What are its main dependencies?`
-7. Run `#runInTerminal mvn clean install -DskipTests` to verify the project compiles.
+7. Run `mvn clean install -DskipTests` in your terminal to verify the project compiles.
 
 ## Phase 1 - 7 min - Baseline Metrics
 8. In Copilot Chat, begin prompts with `#codebase` so responses use repository context.
-9. Run `#runInTerminal mvn test`.
-10. Run `#runInTerminal mvn jacoco:report` and note coverage from `target/site/jacoco/index.html`.
-11. Run `#runInTerminal mvn checkstyle:check` and capture warning counts.
+9. Run `mvn test` in your terminal.
+10. Run `mvn jacoco:report` in your terminal and note coverage from `target/site/jacoco/index.html`.
+11. Run `mvn checkstyle:check` in your terminal and capture warning counts.
 12. Create `docs/NOTES.md` and add baseline coverage, failing tests, and checkstyle totals.
 13. Ask Copilot: `Draft a baseline metrics section for docs/NOTES.md summarizing current coverage, lint issues, and failing tests.`
 
@@ -31,7 +31,7 @@
     - `/explain Analyze DateUtils.java for code smells, performance risks, and security issues. Organize findings by severity.`
 16. Create `docs/RISKS.md` and group findings under Critical, High, and Medium.
 17. Run a targeted usage search:
-    - `#runInTerminal rg "DateUtils" src/main/java`
+    - Run `rg "DateUtils" src/main/java` in your terminal
 18. Ask Copilot:
     - `/explain From these call sites, what downstream impact should I watch for when refactoring?`
 19. Ask for a Golden Example:
@@ -53,8 +53,8 @@
     - `/tests Add edge-case coverage for invalid dates, DST transitions, and leap years using JUnit 5.`
 26. For time-sensitive logic:
     - `/tests Show how to test date calculations in DateUtils.java using java.time.Clock or fixed instants.`
-27. Run `#runInTerminal mvn test` and use `/fix` one failure at a time.
-28. Run `#runInTerminal mvn test jacoco:report` and capture coverage from `target/site/jacoco/index.html`.
+27. Run `mvn test` in your terminal and use `/fix` in Copilot Chat one failure at a time.
+28. Run `mvn test jacoco:report` in your terminal and capture coverage from `target/site/jacoco/index.html`.
 29. If a suggested fix changes production code unexpectedly, reject it and note the finding in `docs/NOTES.md`.
 30. Log updated coverage in `docs/NOTES.md`.
 
@@ -88,7 +88,7 @@
 32. Review the diff and accept only scoped changes.
 33. Ask Copilot:
     - `/explain What did you change and why? What edge cases does this cover, and what could still slip through?`
-34. Keep diffs small and run `#runInTerminal mvn test` after each accepted change.
+34. Keep diffs small and run `mvn test` in your terminal after each accepted change.
 35. If tests fail, paste one failing stack trace into `/fix` and iterate.
 
 ## Foundations Closeout - 3 min - Handoff to Governance

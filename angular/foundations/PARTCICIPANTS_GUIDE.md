@@ -12,21 +12,19 @@
 5. Fork the correct repo track:
    - Angular: `git clone https://github.com/arula-ai/copilot-foundations-lab-angular.git`
    - Java:    `git clone https://github.com/arula-ai/copilot-foundations-lab-java.git`
-6. Run `#runInTerminal npm install` (Angular) or `#runInTerminal mvn clean install -DskipTests`
-7. Run `#getProjectSetupInfo` to get general information about the project and how to set it up
+6. Run `npm install` (Angular) or `mvn clean install -DskipTests` (Java) directly in your terminal
+7. Run `#getProjectSetupInfo` in Copilot Chat to get general information about the project and how to set it up
     - you can also click the settings icon to generate the copilot-instructions.md file
-
-> **Suggestion**: For #runInTerminal prompts use the GPT mini or 0x models and save the premium token requests
 ## Phase 1 · 10 min · Baseline Metrics
 7. In Copilot Chat just type this: `#codebase`
 Use `#codebase` with slash commands to keep prompts context-aware.
 Example: `/explain how does this function behave with #codebase context?`
 
 8. Record baseline tests:
-   - Angular: `#runInTerminal npx ng test --code-coverage --watch=false`
-   - Java: `#runInTerminal mvn test jacoco:report`
+   - Angular: run `npx ng test --code-coverage --watch=false` in your terminal
+   - Java: run `mvn test jacoco:report` in your terminal
    Note coverage % and failing specs in a file called `NOTES.md`.
-9. Run `#runInTerminal npm run lint` or `#runInTerminal mvn -pl app checkstyle:check` and capture warning counts; drop them into `NOTES.md`.
+9. Run `npm run lint` or `mvn -pl app checkstyle:check` in your terminal and capture warning counts; drop them into `NOTES.md`.
 10. Ask Copilot: `Draft a baseline metrics section for NOTES.md summarizing current coverage, lint issues, and failing tests.` Accept and edit as needed.
 
 ## Phase 2 · 10 min · Prompting Mastery
@@ -36,7 +34,7 @@ Example: `/explain how does this function behave with #codebase context?`
 12. Follow up with the Critique then Create pattern:
     - `/explain Analyze this #date-helper.service.ts for code smells, performance risks, and security issues. Organize findings by severity.`
 13. `Create RISKS.md, grouping items under Critical / High / Medium.`
-14. Run a targeted search (`#runInTerminal rg "DateHelperService" src`) to see usage of DateHelperService accorss the codebase:
+14. Run a targeted search (`rg "DateHelperService" src`) in your terminal to see usage of DateHelperService across the codebase:
     - `/explain From these call sites, what downstream impact should I watch for when refactoring?`
 15. Use Golden Example prompt: `/explain Show me an idiomatic Angular service test from this repo I can mirror.` Link the example Copilot returns.
 
@@ -49,7 +47,7 @@ Example: `/explain how does this function behave with #codebase context?`
 19. Use Copilot `/tests Generate baseline unit tests for #date-helper.service focusing on happy paths.`
 20. Iterate: `/tests Add edge-case coverage for invalid dates, DST transitions, and leap years. Use Angular TestBed.`
 21. For async logic, prompt: `/tests Create tests using fakeAsync and tick for the timer-based code.`
-22. Run the suite (`#runInTerminal ng test --code-coverage` or `#runInTerminal mvn test jacoco:report`); paste failing output back into Copilot with `/fix` to get remediation suggestions.
+22. Run the suite (`ng test --code-coverage` or `mvn test jacoco:report`) in your terminal; paste failing output back into Copilot with `/fix` to get remediation suggestions.
 23. Log new coverage numbers in `NOTES.md`; highlight >10% improvements.
 
 \
@@ -58,13 +56,13 @@ Example: `/explain how does this function behave with #codebase context?`
 24. Pick a `REFACTOR_PLAN.md` Step with Low risk.
 25. Before editing, ask Copilot inline: `// Copilot: rewrite this method using RxJS switchMap and takeUntil.` Accept or adjust suggestions.
 26. When Copilot proposes changes, demand explanations: `/explain Why did you choose switchMap here? Are there any regressions to watch for?`
-27. Keep diffs small; after each save, run `#runInTerminal ng test --watch=false` or module-specific Maven tests.
+27. Keep diffs small; after each save, run `ng test --watch=false` or module-specific Maven tests in your terminal.
 
-`#runInTerminal npx nyc report --reporter=text-lcov`
+Run in terminal: `npx nyc report --reporter=text-lcov`
 
-`#runInTerminal npx ng test --code-coverage --watch=false`
+Run in terminal: `npx ng test --code-coverage --watch=false`
 
-`$runInTerminal open coverage/copilot-foundations-lab1-angular/index.html`
+Run in terminal: `open coverage/copilot-foundations-lab1-angular/index.html`
 
 28. If Copilot's change fails tests, use `/fix` with the failing stack trace to generate patches.
 
