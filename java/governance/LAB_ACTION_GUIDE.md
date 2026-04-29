@@ -32,8 +32,6 @@ Use Summarizer Mode with the Hand-Off prompt at milestone stages (Stage 2, Stage
 
 ## Stage 0 – Environment Setup
 
-- Run `./scripts/setup-lab.sh` in your terminal for one-time setup validation.
-- If script execution is unavailable, run manual checks in your terminal: `java -version`, `mvn -version`, and `mvn -B -q validate`.
 - Run `mvn spring-boot:run` in your terminal (initial runtime issues are acceptable for baseline).
 
 No hand-off is required at this stage.
