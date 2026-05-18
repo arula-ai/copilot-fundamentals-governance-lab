@@ -14,7 +14,7 @@
    cd java/foundations
    ```
 6. Ask Copilot: `How do I build and run this project? What are its main dependencies?`
-7. Run `mvn clean install -DskipTests` in your terminal to verify the project compiles.
+7. Run `mvn clean install -DskipTests -s .mvn/settings.xml` in your terminal to verify the project compiles.
 
 ## Phase 1 - 7 min - Baseline Metrics
 8. In Copilot Chat, begin prompts with `#codebase` so responses use repository context.
