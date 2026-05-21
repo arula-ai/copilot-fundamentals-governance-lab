@@ -93,7 +93,7 @@ mvn jacoco:report                    # Explicitly regenerate coverage report
 ```
 
 ## Style Guide Highlights
-- Package names use `com.github.copilot.lab.<feature>`.
+- Package names use `com.github.copilot.governancelab.<feature>`.
 - Use `@ConfigurationProperties` for new settings; document them in `README.md`.
 - Prefer `ResponseEntity<T>` for controllers; centralize exception handling in `@ControllerAdvice`.
 - Use SLF4J (`private static final Logger log = LoggerFactory.getLogger(...)`).

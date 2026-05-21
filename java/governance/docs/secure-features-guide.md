@@ -23,7 +23,7 @@ Before you touch code:
 ### 1. Security Headers Filter
 Create a servlet filter that enforces defensive HTTP headers on every response.
 
-- **Suggested file:** `src/main/java/com/github/copilot/lab/security/SecurityHeadersFilter.java`
+- **Suggested file:** `src/main/java/com/github/copilot/governancelab/security/SecurityHeadersFilter.java`
 - **Requirements:**
   - Add headers: `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `X-XSS-Protection` (legacy), `Referrer-Policy`, and a restrictive `Content-Security-Policy`.
   - Make the filter conditional on configuration (`security.headers.enabled=true` by default).
@@ -37,23 +37,24 @@ Create a servlet filter that enforces defensive HTTP headers on every response.
 Provide an auditable record for sensitive operations such as report exports and file uploads.
 
 - **Suggested files:**
-  - `src/main/java/com/github/copilot/lab/audit/AuditTrailService.java`
-  - `src/main/java/com/github/copilot/lab/audit/AuditEvent.java` (immutable value object)
+  - `src/main/java/com/github/copilot/governancelab/audit/AuditTrailService.java`
+  - `src/main/java/com/github/copilot/governancelab/audit/AuditEvent.java` (immutable value object)
 - **Requirements:**
   - Record who performed the action, the resource identifier, timestamp, IP address, and outcome.
+  - Cover the security-relevant events that exist in this lab: login success, login failure, profile change, logout, file upload, and admin debug-endpoint access.
   - Store events in a durable store (JPA entity or append-only log). If persistence is out of scope, implement a pluggable interface with a stub repository and document the TODO.
-  - Expose helper methods controllers can call (`recordReportExport`, `recordFileUpload`, etc.).
+  - Expose helper methods controllers can call (`recordLogin`, `recordProfileChange`, `recordFileUpload`, etc.).
   - Ensure logging sanitises user input and uses MDC correlation IDs when available.
 - **Validation:**
   - Unit tests verifying event creation, sanitisation, and repository interaction (use Mockito).
-  - Update controllers to invoke the audit service; tests should assert audit calls happen.
+  - Update `ApiController` and `PageController` to invoke the audit service; tests should assert audit calls happen.
 
 ### 3. File Scanning & Quarantine Pipeline
 Augment file upload handling with antivirus scanning and quarantine support.
 
 - **Suggested files:**
-  - `src/main/java/com/github/copilot/lab/files/FileScanService.java`
-  - `src/main/java/com/github/copilot/lab/files/FileQuarantineException.java`
+  - `src/main/java/com/github/copilot/governancelab/files/FileScanService.java`
+  - `src/main/java/com/github/copilot/governancelab/files/FileQuarantineException.java`
 - **Requirements:**
   - Provide a method `scan(InputStream stream, String originalFilename)` that returns a `ScanResult` enum (`CLEAN`, `INFECTED`, `UNKNOWN`).
   - Integrate with a pluggable scanner (stub using configuration flag and log warnings if no scanner configured).
@@ -64,20 +65,22 @@ Augment file upload handling with antivirus scanning and quarantine support.
   - Integration tests ensuring uploads are rejected or quarantined; use temporary directories.
   - Document quarantine behaviour and configuration in `README.md`.
 
-### 4. Report Export Policy
-Enforce least privilege and guard against untrusted export formats.
+### 4. Upload Policy & Allow-List
+Enforce least privilege and guard against untrusted file types on the `/api/upload` endpoint.
 
 - **Suggested files:**
-  - `src/main/java/com/github/copilot/lab/report/ReportExportPolicy.java`
-  - `src/main/java/com/github/copilot/lab/report/ReportFormat.java`
+  - `src/main/java/com/github/copilot/governancelab/upload/UploadPolicy.java`
+  - `src/main/java/com/github/copilot/governancelab/upload/AllowedContentType.java`
 - **Requirements:**
-  - Maintain an allow-list of export formats (e.g., PDF, CSV) with associated MIME types and generator beans.
-  - Validate `reportId` ownership before exporting (hook into AuditTrailService for logging).
-  - Deny exports when the requesting user lacks required roles (Spring Security `@PreAuthorize` or service-level checks).
+  - Maintain an allow-list of accepted MIME types and file extensions (e.g., `image/png`, `application/pdf`, `text/csv`).
+  - Enforce a maximum file size (drive from `application.properties`).
+  - Validate filenames against a strict character allow-list to defeat path traversal at the policy layer (defence in depth — `ApiController` should also normalise).
+  - Deny uploads when the requesting user lacks the required role (Spring Security `@PreAuthorize` or service-level checks).
+  - Hook into `AuditTrailService` for logging accepted and rejected uploads.
   - Provide defensive defaults if configuration references unknown formats.
 - **Validation:**
   - Unit tests verifying the allow-list and permission checks.
-  - Integration test ensuring denied requests return 403 and do not hit the exporter.
+  - Integration test ensuring denied requests return 400/403 and that the file never reaches disk.
 
 ### 5. Configuration Hardening
 Externalise newly introduced settings and provide secure defaults.

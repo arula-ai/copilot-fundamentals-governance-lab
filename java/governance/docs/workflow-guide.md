@@ -7,18 +7,22 @@ The Java edition of the Copilot Governance Lab ships with intentionally vulnerab
 ## Stage 0 – Prepare & Align
 - Read `.github/instructions/java.instructions.md`, `LAB_ACTION_GUIDE.md`, `README.md`, and (when available) `SECURITY.md`.
 - Select the **java-planning** agent from the Agent dropdown in Copilot Chat to capture initial assumptions, risks, and questions in `docs/workflow-tracker.md`.
-- Familiarise yourself with the vulnerable Java classes referenced in `docs/vulnerability-guide.md` under `src/main/java/com/github/copilot/lab/`.
+- Familiarise yourself with the vulnerable Java classes referenced in `docs/vulnerability-guide.md` under `src/main/java/com/github/copilot/governancelab/`.
 
 ## Stage 1 – Assess the Baseline
-- Target files:
-  - `AuthControllerVulnerable.java`
-  - `FileStorageServiceVulnerable.java`
-  - `ReportControllerVulnerable.java`
+- Target files (auth-and-session surface):
+  - `service/AuthService.java`
+  - `repository/InsecureSessionRepository.java`
+  - `controller/ApiController.java`
+  - `controller/PageController.java`
+  - `model/User.java`, `model/AuthResponse.java`
+  - `src/main/resources/templates/dashboard.html`
+  - `src/main/resources/application.properties`
 - Use `docs/vulnerability-guide.md` to catalogue OWASP mappings, affected assets, logging concerns, and missing controls.
 - Persist findings in a dedicated plan (e.g., `docs/plans/stage1-plan.md`) and summarise key risks + open questions in `docs/workflow-tracker.md`.
 
 ## Stage 2 – Remediate with Copilot
-- Remediate the vulnerable classes **in place**. Only drop the `Vulnerable` suffix after the code meets guardrails and tests pass.
+- Remediate the vulnerable classes **in place**. Only drop the `Insecure` prefix (e.g., rename `InsecureSessionRepository` to `SessionRepository`) after the code meets guardrails and tests pass.
 - Apply Spring Boot best practices: constructor injection, DTO validation, prepared statements/Spring Data, session regeneration, secure logging.
 - Record every Maven command (`mvn clean`, `mvn test`, `mvn verify`, `mvn dependency:tree`, `./scripts/run-all-checks.sh`) in `docs/test-coverage.md` with outcomes and coverage deltas.
 - Update `docs/workflow-tracker.md`, `VULNERABILITIES.md`, and `FIXES.md` with remediation progress and residual risks.
@@ -30,7 +34,7 @@ The Java edition of the Copilot Governance Lab ships with intentionally vulnerab
 
 ## Stage 4 – Implement Secure Enhancements
 - Use `docs/secure-features-guide.md` to add proactive controls (e.g., security filters, sanitisation utilities, policy enforcement).
-- Keep implementation within `src/main/java/com/github/copilot/lab/` and `src/main/resources/templates/` as appropriate.
+- Keep implementation within `src/main/java/com/github/copilot/governancelab/` and `src/main/resources/templates/` as appropriate.
 - Capture architectural decisions, new configuration properties, and validation plans in `docs/plans/stage4-plan.md` and the workflow tracker.
 
 ## Stage 5 – Governance Validation & Reporting

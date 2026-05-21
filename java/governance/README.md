@@ -2,12 +2,18 @@
 
 This directory contains a Spring Boot 3 project seeded with governance gaps so you can practice directing GitHub Copilot, documenting decisions, and delivering secure fixes end to end. Every stage of the lab focuses on pairing AI-assisted development with auditable evidence: plans, test results, reports, and code reviews.
 
-## Working Directory
+## Workspace Setup
 
-**Important**: All commands should be run from this directory (`java/governance`).
+**Open VS Code at the parent repository root** — `copilot-fundamentals-governance-lab/` — not at `java/governance/`.
+
+This is required so GitHub Copilot can discover the shared `.github/` configuration (agents, instructions, prompts) that lives at the parent level. If your Agent Mode dropdown is empty after opening the workspace, you opened too deep — close VS Code and reopen at the parent root.
+
+## Working Directory (terminal)
+
+All Maven and shell commands should be run from `java/governance` (the VS Code workspace stays at the parent root):
 
 ```bash
-# From the repository root:
+# From the repository root (the directory you just opened in VS Code):
 cd java/governance
 ```
 
@@ -23,7 +29,9 @@ cd java/governance
 # One-time setup (validates Java/Maven and runs mvn validate)
 ./scripts/setup-lab.sh
 
-# Start the application (expected to fail until you remediate vulnerabilities)
+# Start the application — it will boot successfully on http://localhost:8080.
+# Vulnerabilities surface through behaviour (insecure defaults, exposed debug
+# endpoints, plaintext credential handling) — NOT through startup failures.
 mvn spring-boot:run
 ```
 
@@ -47,16 +55,18 @@ mvn dependency:tree
 
 ## Governance Workflow Overview
 
-| Stage | Focus | Key References |
+Stage numbering here matches `LAB_ACTION_GUIDE.md` and `docs/workflow-guide.md` — same numbers, same labels, end to end.
+
+| Stage | Name | Key References |
 | --- | --- | --- |
-| 0 | Environment setup, baseline assumptions | `.github/instructions/java.instructions.md`, `LAB_ACTION_GUIDE.md`, `docs/workflow-tracker.md` |
-| 1 | Vulnerability assessment | `docs/vulnerability-guide.md`, `docs/plans/stage1-plan.md` |
-| 2 | Remediation implementation | `docs/vulnerability-guide.md`, `docs/test-coverage.md` |
-| 3 | Security test generation | `docs/testing-guide.md`, `docs/test-coverage.md` |
-| 4 | Secure feature enhancements | `docs/secure-features-guide.md`, `docs/plans/stage4-plan.md` |
-| 5 | Governance validation & reporting | `./scripts/run-all-checks.sh`, `./scripts/generate-report.sh`, documentation updates |
-| 6 | Homework / stretch exercises | `homework/README.md`, challenge folders |
-| 7 | Submission readiness | `homework/GRADING_RUBRIC.md`, PR template |
+| 0 | Setup & Governance Alignment | `.github/instructions/java.instructions.md`, `LAB_ACTION_GUIDE.md`, `docs/workflow-tracker.md` |
+| 1 | Baseline Assessment | `docs/vulnerability-guide.md`, `docs/plans/plan.md` |
+| 2 | Remediation | `docs/vulnerability-guide.md`, `docs/test-coverage.md` |
+| 3 | Security Test Generation | `docs/testing-guide.md`, `docs/test-coverage.md` |
+| 4 | Secure Feature Implementation | `docs/secure-features-guide.md`, `docs/plans/plan.md` |
+| 5 | Governance Validation & Reporting | `./scripts/run-all-checks.sh`, `./scripts/generate-report.sh`, documentation updates |
+| 6 | Optional: Homework & Extras | `homework/README.md`, challenge folders |
+| 7 | Optional: Prepare Submission | `homework/GRADING_RUBRIC.md`, PR template |
 
 See `LAB_ACTION_GUIDE.md` and `docs/workflow-guide.md` for detailed responsibilities per stage and the expected Copilot agents (e.g., `java-planning`, `java-testing`).
 
@@ -110,10 +120,10 @@ Document command executions and outcomes in `docs/test-coverage.md` and `docs/wo
 ```
 ├── src/
 │   ├── main/
-│   │   ├── java/com/github/copilot/lab/            # Controllers, services, configs (contains intentionally vulnerable code)
+│   │   ├── java/com/github/copilot/governancelab/  # Controllers, services, configs (contains intentionally vulnerable code)
 │   │   └── resources/                              # application.properties, templates, static assets
 │   └── test/
-│       └── java/com/github/copilot/lab/            # JUnit + Spring Boot tests
+│       └── java/com/github/copilot/governancelab/  # JUnit + Spring Boot tests
 ├── docs/                                           # Governance plans, workflow logs, coverage notes, stage guides
 ├── scripts/                                        # Setup and reporting scripts
 ├── static-analysis/                                # Checklists and policy docs
@@ -134,7 +144,8 @@ Document command executions and outcomes in `docs/test-coverage.md` and `docs/wo
 | Issue | Resolution |
 | --- | --- |
 | Java/Maven not detected during setup | Ensure `java -version` reports 17+, `mvn -version` reports 3.9+, then rerun `./scripts/setup-lab.sh`. |
-| `mvn spring-boot:run` fails immediately | This is expected until you remediate the vulnerable code; use the failure output to guide Stage 1 discovery. |
+| Agent Mode dropdown empty or `/hand-off` not offered | VS Code workspace is opened too deep. Close and reopen at the parent `copilot-fundamentals-governance-lab/` root so Copilot can see `.github/agents/` and `.github/prompts/`. |
+| `mvn spring-boot:run` fails to start | The app should start cleanly on port 8080. If startup fails, check Java version (`java -version` must be 17+) and that port 8080 is free. Vulnerabilities are behavioural, not startup-blocking. |
 | Coverage below threshold | Expand tests defined in `docs/testing-guide.md`, or justify the gap in `docs/test-coverage.md`. |
 | Copilot suggestions ignore guardrails | Re-state relevant sections from `.github/instructions/java.instructions.md` in your prompt and attach source context before requesting code. |
 | Scripts fail on Windows | Use WSL2 or a bash-compatible environment; the lab assumes GNU utilities. |
