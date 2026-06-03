@@ -1,5 +1,5 @@
 ---
-mode: summarizer
+mode: java-summarizer
 ---
 Generate a concise, professional hand-off summary for this session.
 
