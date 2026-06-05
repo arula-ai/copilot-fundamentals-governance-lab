@@ -30,37 +30,29 @@
 15. Follow with:
     - `/explain Analyze DateUtils.java for code smells, performance risks, and security issues. Organize findings by severity.`
 16. Create `docs/RISKS.md` and group findings under Critical, High, and Medium.
-17. Run a targeted usage search:
-    - Run `rg "DateUtils" src/main/java` in your terminal
-18. Ask Copilot:
-    - `/explain From these call sites, what downstream impact should I watch for when refactoring?`
-19. Ask for a Golden Example:
-    - `/explain Show me an idiomatic JUnit test for OrderService.java from this repo I can mirror.`
 
 ## Phase 3 - 5 min - Refactor Plan with Copilot
-20. Ask Copilot:
+17. Ask Copilot:
     - `/explain Create a numbered refactor plan for DateUtils.java that addresses Critical items in docs/RISKS.md first, each with success criteria and required tests.`
-21. Paste the response into `REFACTOR_PLAN.md`.
-22. For each plan step, ask:
-    - `/explain For Step 1 above, how will I prove success via tests or metrics?`
+18. Paste the response into `REFACTOR_PLAN.md`.
 
 ## Phase 4 - 7 min - Test Generation Sprint
-23. Validate behavior first:
+19. Validate behavior first:
     - `/explain For each public method in DateUtils.java, what does it return for valid non-null inputs? Give one concrete input and output example per method.`
-24. Generate tests:
+20. Generate tests:
     - `/tests Based on the behavior you just described, generate JUnit 5 happy-path unit tests for DateUtils.java in src/test/java/com/workshop/copilot/utils/DateUtilsTest.java.`
-25. Add edge cases:
+21. Add edge cases:
     - `/tests Add edge-case coverage for invalid dates, DST transitions, and leap years using JUnit 5.`
-26. For time-sensitive logic:
+22. For time-sensitive logic:
     - `/tests Show how to test date calculations in DateUtils.java using java.time.Clock or fixed instants.`
-27. Run `mvn test` in your terminal and use `/fix` in Copilot Chat one failure at a time.
-28. Run `mvn test jacoco:report` in your terminal and capture coverage from `target/site/jacoco/index.html`.
-29. If a suggested fix changes production code unexpectedly, reject it and note the finding in `docs/NOTES.md`.
-30. Log updated coverage in `docs/NOTES.md`.
+23. Run `mvn test` in your terminal and use `/fix` in Copilot Chat one failure at a time.
+24. Run `mvn test jacoco:report` in your terminal and capture coverage from `target/site/jacoco/index.html`.
+25. If a suggested fix changes production code unexpectedly, reject it and note the finding in `docs/NOTES.md`.
+26. Log updated coverage in `docs/NOTES.md`.
 
 ## Phase 5 - 6 min - Implement One Safe Refactor
-30. Open `REFACTOR_PLAN.md` and pick the lowest-risk step.
-31. Use this **Prompt Template** in Copilot Chat (copy/paste as-is):
+27. Open `REFACTOR_PLAN.md` and pick the lowest-risk step.
+28. Use this **Prompt Template** in Copilot Chat (copy/paste as-is):
 
     ```text
     Use #codebase and read: docs/RISKS.md, REFACTOR_PLAN.md, docs/NOTES.md.
@@ -85,17 +77,17 @@
        - verification results
        - NOTES.md update block (risk mitigated, files changed, tests run, pass/fail, coverage delta, residual risk)
     ```
-32. Review the diff and accept only scoped changes.
-33. Ask Copilot:
+29. Review the diff and accept only scoped changes.
+30. Ask Copilot:
     - `/explain What did you change and why? What edge cases does this cover, and what could still slip through?`
-34. Keep diffs small and run `mvn test` in your terminal after each accepted change.
-35. If tests fail, paste one failing stack trace into `/fix` and iterate.
+31. Keep diffs small and run `mvn test` in your terminal after each accepted change.
+32. If tests fail, paste one failing stack trace into `/fix` and iterate.
 
 ## Foundations Closeout - 3 min - Handoff to Governance
-36. Update `docs/NOTES.md` with a short "What Changed" summary.
-37. Add a "Validation Evidence" block with latest test status and coverage delta.
-38. Update `docs/RISKS.md` with unresolved high-priority risks.
-39. Add a "Governance Handoff" note: which unresolved risk should be tackled first next and why.
+33. Update `docs/NOTES.md` with a short "What Changed" summary.
+34. Add a "Validation Evidence" block with latest test status and coverage delta.
+35. Update `docs/RISKS.md` with unresolved high-priority risks.
+36. Add a "Governance Handoff" note: which unresolved risk should be tackled first next and why.
 
 ---
 
