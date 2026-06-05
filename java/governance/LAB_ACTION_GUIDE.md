@@ -68,7 +68,7 @@ No hand-off is required at this stage.
 - Switch to **Planning Mode (java-planning)** and run:
   ```text
   Build a Stage 1 baseline plan using docs/vulnerability-guide.md and docs/test-coverage.md.
-  Include target files, prioritized risks, and evidence needs. Save to docs/plans/plan.md.
+  Include target files, prioritized risks, and evidence needs.
   ```
 - Switch to **Validation Mode (java-validation)** and run:
   ```text
@@ -79,9 +79,10 @@ No hand-off is required at this stage.
   ```text
   Create the final Stage 1 execution checklist: target files, risks per file,
   artifacts to update, and command order for Stage 2 readiness.
+  Save or update docs/plans/plan.md with the approved plan and open questions.
   ```
 - If missing, create `VULNERABILITIES.md`, `FIXES.md`, `COPILOT_USAGE.md`, and `SECURITY.md` at the repo root (`java/governance/`).
-- Save or update `docs/plans/plan.md` with the approved plan and open questions.
+- Switch back to **Agent Mode** and update `VULNERABILITIES.md` based on the identified threats.
 - **Hand-Off:** run `/hand-off` (Summarizer Mode) and append the summary to `docs/workflow-tracker.md` with approved plan, guardrail checks, and blockers.
 
 ## Stage 2 – Remediation
