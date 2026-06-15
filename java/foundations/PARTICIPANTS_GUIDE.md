@@ -18,18 +18,18 @@
 
 ## Phase 1 - 7 min - Baseline Metrics
 8. In Copilot Chat, begin prompts with `#codebase` so responses use repository context.
-9. Run `mvn test` in your terminal.
-10. Run `mvn jacoco:report` in your terminal and note coverage from `target/site/jacoco/index.html`.
-11. Run `mvn checkstyle:check` in your terminal and capture warning counts.
+9. Run `mvn test 2>&1 | tee target/test-output.txt` in your terminal.
+10. Run `mvn jacoco:report 2>&1 | tee target/jacoco-output.txt` in your terminal and note coverage from `target/site/jacoco/index.html`.
+11. Run `mvn checkstyle:check 2>&1 | tee target/checkstyle-output.txt` in your terminal and capture warning counts.
 12. Create `docs/NOTES.md` and add baseline coverage, failing tests, and checkstyle totals.
-13. Ask Copilot: `Draft a baseline metrics section for docs/NOTES.md summarizing current coverage, lint issues, and failing tests.`
+13. Ask Copilot: `Draft a baseline metrics section for java/foundations/docs/NOTES.md summarizing current coverage, lint issues, and failing tests. Read coverage numbers directly from target/site/jacoco/index.html`
 
 ## Phase 2 - 8 min - Analyze and Risk Triage
 14. Ask Copilot:
     - `/explain Review #codebase and explain DateUtils.java responsibilities, dependencies, and hidden side effects.`
 15. Follow with:
     - `/explain Analyze DateUtils.java for code smells, performance risks, and security issues. Organize findings by severity.`
-16. Create `docs/RISKS.md` and group findings under Critical, High, and Medium.
+16. Create `java/foundations/docs/RISKS.md` and group findings under Critical, High, and Medium.
 
 ## Phase 3 - 5 min - Refactor Plan with Copilot
 17. Ask Copilot:
@@ -46,7 +46,7 @@
 22. For time-sensitive logic:
     - `/tests Show how to test date calculations in DateUtils.java using java.time.Clock or fixed instants.`
 23. Run `mvn test` in your terminal and use `/fix` in Copilot Chat one failure at a time.
-24. Run `mvn test jacoco:report` in your terminal and capture coverage from `target/site/jacoco/index.html`.
+24. Run `mvn jacoco:report` in your terminal and capture coverage from `target/site/jacoco/index.html`.
 25. If a suggested fix changes production code unexpectedly, reject it and note the finding in `docs/NOTES.md`.
 26. Log updated coverage in `docs/NOTES.md`.
 
