@@ -255,4 +255,33 @@ docs/
 
 ---
 
+### GitHub Copilot Chat - Quick Reference Note
+
+> `#` variables and `@` participants → VS Code only.
+>
+> Slash commands (`/explain`, `/fix`, `/tests`, `/doc`, `/simplify`) → available in both VS Code and IntelliJ.
+
+IntelliJ does not support `#codebase`, `#file`, `#selection`, `#terminalLastCommand`, or any `@workspace` / `@github` / `@terminal` participants. IntelliJ automatically includes the open file as context without requiring explicit syntax.
+
+---
+
+### Maven Setup & Troubleshooting
+
+#### Prerequisites
+
+You will need **Visual Studio Code** (or another IDE) and **Maven** installed on your machine.
+
+- If Maven is not installed, you can install it from the **Company Portal**.
+- Please see this [guide](https://confluence.fmr.com/spaces/AP140884/pages/2358092473/Setup+Maven+Settings.xml+File) to ensure your `settings.xml` file is set up properly before running any Maven commands.
+
+
+#### Verify your setup
+
+```bash
+java -version    # Should show 17 or higher
+mvn -version     # Should show Maven 3.9 or higher
+```
+
+---
+
 **Happy Learning!** Document every assumption, surface evidence for each fix, and keep the audit trail up to date.
