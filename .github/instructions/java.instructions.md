@@ -40,7 +40,7 @@ The lab centers on a Spring Boot 3 application built with Java 17 and Maven. Fol
 - Enforce authentication/authorization decisions centrally (filters, Spring Security config) when the exercise introduces them.
 - Protect against CSRF, XSS, SQL/command injection, and deserialization attacks—prefer framework features over custom code.
 - Validate and normalize file paths/URIs, applying allow-lists where possible.
-- Keep dependencies current and avoid using vulnerable libraries; reference `static-analysis` findings where provided.
+- Keep dependencies current and avoid using vulnerable libraries.
 
 ### Testing & Quality Gates
 - Add/extend unit and integration tests for every fix or feature (`src/test/java`).
@@ -50,14 +50,9 @@ The lab centers on a Spring Boot 3 application built with Java 17 and Maven. Fol
   - `mvn test`
   - `mvn verify` (generates Jacoco)
   - `mvn dependency:tree` (supply evidence of dependency review)
-  - `./scripts/run-all-checks.sh` and `./scripts/generate-report.sh` when governance stages require it.
-- Capture coverage improvements with Jacoco and update documentation when coverage drops below thresholds.
 
 ## Workflow Logging Requirements
-- Every Copilot agent session must append a concise summary of actions, decisions, and remaining risks to `docs/workflow-tracker.md` before ending.
 - Planning sessions (java-planning) log assumptions and questions in the tracker and store detailed plans in `docs/plans/plan.md` (overwrite prior plan instead of creating new filenames).
-- Testing agent (java-testing) must create or update `docs/test-coverage.md` with commands executed (`mvn clean`, `mvn test`, `mvn verify`, `mvn dependency:tree`, scripts, etc.), results, coverage metrics, and follow-up actions; do not create alternate coverage logs.
-- Scrum Master agent (java-scrum-master) documents backlog breakdowns, owners, and dependencies both in its task file (for example `plan.tasks.md`) and the workflow tracker.
 - Validation (java-validation) and Need Review (java-need-review) agents capture pass/fail summaries, cited files, and required remediation in the tracker to maintain an audit trail.
 - Store all governance artifacts within `docs/` so downstream agents can reuse them.
 
@@ -67,7 +62,7 @@ The lab centers on a Spring Boot 3 application built with Java 17 and Maven. Fol
 3. Implement Spring Boot changes with secure defaults (validation, logging, error handling).
 4. Run required Maven commands and governance scripts; capture outcomes.
 5. Update documentation (`VULNERABILITIES.md`, `FIXES.md`, `docs/workflow-tracker.md`, etc.) with evidence.
-6. Prepare clean commits/PRs with context, test results, and Copilot usage notes.
+6. Prepare clean commits/PRs with context and test results.
 
 ## Additional Guidelines
 - Use `.java` naming conventions (`PascalCase` types, camelCase members); keep packages descriptive (`com.github.copilot.<feature>`).

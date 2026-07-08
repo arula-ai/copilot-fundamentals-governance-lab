@@ -1,287 +1,91 @@
-# Arula.AI - GitHub Copilot Fundamentals & Governance Lab
+# GitHub Copilot Governance Lab — Java (Spring Boot)
 
-A comprehensive hands-on lab for mastering GitHub Copilot in enterprise development workflows. This consolidated repository provides two learning tracks across two technology stacks, enabling teams to practice AI-assisted development with proper governance, security awareness, and audit trails.
+A hands-on, 90-minute lab for practicing **secure, governed GitHub Copilot usage** on a real Spring Boot application. You comprehend an intentionally vulnerable codebase, register and prioritize its risks, plan and test remediations, fix the top two vulnerabilities under review, and produce an auditable trail — all driven through Copilot Agent Mode and a set of custom `.github/agents`.
 
-## Copyright & License
+> ⚠️ **This application is intentionally vulnerable.** It exists only for training. Do **not** deploy it or reuse its code in production.
 
-Copyright 2025 Arula.AI (InRhythm Arula Labs). All Rights Reserved.
+---
 
-This repository and its contents are proprietary and confidential. Unauthorized copying, distribution, modification, or use is strictly prohibited. See [LICENSE](LICENSE) for full terms.
+## What this is
 
-## Warning
+- **One app, one flow.** A small Spring Boot 3 / Java 17 auth-and-session surface: one service, one repository, two controllers, two Thymeleaf views, and the models that connect them.
+- **Behavior-driven vulnerabilities.** The app **builds green and runs**; its weaknesses surface through *behavior*, not build failures. That keeps the lab fast and the signal clean.
+- **Governance-first.** Every stage ends with a `/hand-off` summary appended to `docs/workflow-tracker.md`, giving you a complete audit trail of what Copilot did and why.
 
-This repository contains **intentionally vulnerable and problematic code** for training purposes.
-**DO NOT use this code in production.**
+The lab uses two custom Copilot surfaces:
+- **Custom agents** in `.github/agents/` (`java-planning`, `java-validation`, `java-testing`, `java-need-review`, `java-summarizer`).
+- **Guardrails** in `.github/instructions/java.instructions.md`, applied automatically to Java/config files.
 
-## Lab Structure
+---
 
-```
-copilot-fundamentals-governance-lab/
-├── angular/
-│   ├── foundations/     # Copilot Foundations: Refactoring with Confidence
-│   └── governance/      # Copilot Governance: Security & Compliance
-├── java/
-│   ├── foundations/     # Copilot Foundations: Refactoring with Confidence
-│   └── governance/      # Copilot Governance: Security & Compliance
-└── .github/
-    ├── agents/          # Language-specific Copilot agents
-    ├── instructions/    # Language-specific coding standards
-    ├── workflows/       # CI/CD pipelines
-    └── prompts/         # Reusable prompt templates
-```
+## Prerequisites
 
-## Choose Your Path
+- **Java 17+** (Temurin/OpenJDK)
+- **Maven 3.9+**
+- **VS Code** with **GitHub Copilot** (Agent Mode enabled)
 
-| Track | Focus | Duration | Difficulty |
-|-------|-------|----------|------------|
-| **Foundations** | Comprehend, Refactor, Test legacy code | 40 min | Beginner-Intermediate |
-| **Governance** | Security remediation, compliance, audit trails | 2-3 hours | Intermediate-Advanced |
-
-| Technology | Prerequisites |
-|------------|---------------|
-| **Angular** | Node.js 18+, Angular CLI 16+, npm |
-| **Java** | JDK 17+, Maven 3.9+, Bash shell |
-
-## Quick Start
-
-### Angular Track
+Verify your toolchain:
 
 ```bash
-# Clone the repository
-git clone https://github.com/arula-ai/copilot-fundamentals-governance-lab.git
-cd copilot-fundamentals-governance-lab
-
-# For Foundations Lab
-cd angular/foundations
-npm install
-npm start
-
-# For Governance Lab
-cd angular/governance
 ./scripts/setup-lab.sh
-npm start
 ```
 
-### Java Track
+---
+
+## How to run
+
+Open this folder in VS Code (the root `.github/` makes the custom agents discoverable), then:
 
 ```bash
-# Clone the repository
-git clone https://github.com/arula-ai/copilot-fundamentals-governance-lab.git
-cd copilot-fundamentals-governance-lab
-
-# For Foundations Lab
-cd java/foundations
-mvn clean install
-mvn spring-boot:run
-
-# For Governance Lab
-cd java/governance
-./scripts/setup-lab.sh
+mvn validate      # baseline sanity
+mvn test          # 1 test passes on the untouched app
+mvn verify        # full gate, green baseline
 mvn spring-boot:run
 ```
 
-## Lab Tracks Overview
-
-### Foundations Lab (Both Languages)
-
-**Goal**: Learn to use Copilot for everyday development workflows.
-
-**What You'll Practice**:
-- Using Copilot to understand legacy code
-- Identifying anti-patterns and code smells
-- Generating comprehensive test suites
-- Planning and executing safe refactors
-- Documenting changes effectively
-
-**Baseline Metrics**:
-- Test Coverage: ~25%
-- Code Smells: 75+
-- Memory Leaks: 5+ locations
-- ESLint/Checkstyle Warnings: 300+
-
-**Target Metrics**:
-- Test Coverage: 45%+
-- Code Smells: <40
-- Memory Leaks: 0
-- Warnings: <50
-
-### Governance Lab (Both Languages)
-
-**Goal**: Master AI-assisted development with enterprise governance requirements.
-
-**What You'll Practice**:
-- Vulnerability assessment and OWASP mapping
-- Security remediation with audit trails
-- Test generation for security scenarios
-- Implementing proactive security controls
-- Quality gate compliance and reporting
-
-**Governance Stages**:
-1. **Stage 0** – Environment Setup & Alignment
-2. **Stage 1** – Baseline Assessment
-3. **Stage 2** – Remediation with Copilot
-4. **Stage 3** – Security Test Generation
-5. **Stage 4** – Secure Feature Implementation
-6. **Stage 5** – Governance Validation & Reporting
-7. **Stage 6+** – Homework & Submission
-
-## Copilot Agents
-
-This lab includes custom Copilot agents optimized for each language. Select agents from the **Agent dropdown** in VS Code Copilot Chat.
-
-### Angular Agents (`.github/agents/angular-*.agent.md`)
-
-| Agent | Purpose |
-|-------|---------|
-| `angular-planning` | Build strategies, write plans, log assumptions |
-| `angular-testing` | Execute lint/test suites, log coverage results |
-| `angular-validation` | Verify guardrails compliance, pass/fail audits |
-| `angular-need-review` | Final review, capture approvals and findings |
-| `angular-scrum-master` | Break work into tasks with acceptance criteria |
-| `angular-summarizer` | Generate hand-off summaries for workflow tracker |
-
-### Java Agents (`.github/agents/java-*.agent.md`)
-
-| Agent | Purpose |
-|-------|---------|
-| `java-planning` | Build strategies, write plans, log assumptions |
-| `java-testing` | Execute Maven commands, log coverage results |
-| `java-validation` | Verify guardrails compliance, pass/fail audits |
-| `java-need-review` | Final review, capture approvals and findings |
-| `java-scrum-master` | Break work into tasks with acceptance criteria |
-| `java-summarizer` | Generate hand-off summaries for workflow tracker |
-
-## Coding Standards
-
-Language-specific instructions are automatically applied based on file type:
-
-- **Angular**: `.github/instructions/angular.instructions.md` (applies to `*.ts`, `*.html`, `*.scss`)
-- **Java**: `.github/instructions/java.instructions.md` (applies to `*.java`, `*.properties`, `*.xml`)
-
-## Common Commands
-
-### Angular
-
-```bash
-npm start                  # Start dev server
-npm test                   # Run tests
-npm run test:coverage      # Run tests with coverage
-npm run lint               # ESLint check
-npm run lint:security      # Security-focused lint
-npm audit                  # Check dependencies
-./scripts/run-all-checks.sh    # All quality gates
-./scripts/generate-report.sh   # Generate governance report
-```
-
-### Java
-
-```bash
-mvn spring-boot:run        # Start application
-mvn test                   # Run tests
-mvn verify                 # Full verification + Jacoco
-mvn dependency:tree        # Dependency analysis
-./scripts/run-all-checks.sh    # All quality gates
-./scripts/generate-report.sh   # Generate governance report
-```
-
-## Documentation Structure
-
-Each governance lab includes:
-
-```
-docs/
-├── workflow-tracker.md      # Session logs and decisions
-├── workflow-guide.md        # Stage-by-stage instructions
-├── vulnerability-guide.md   # Security issues to address
-├── testing-guide.md         # Test generation playbook
-├── secure-features-guide.md # Proactive security controls
-├── test-coverage.md         # Coverage metrics and results
-└── plans/                   # Stage-specific plans
-```
-
-## Success Metrics
-
-### Foundations Lab
-- [ ] Memory leaks eliminated
-- [ ] Test coverage improved to 45%+
-- [ ] Modern patterns applied (RxJS/Spring best practices)
-- [ ] Type safety improved
-- [ ] Code smells reduced by 50%
-
-### Governance Lab
-- [ ] Vulnerabilities documented in `VULNERABILITIES.md`
-- [ ] Remediations tracked in `FIXES.md`
-- [ ] Copilot usage logged in `COPILOT_USAGE.md`
-- [ ] Coverage ≥80% (or documented exception)
-- [ ] All quality gates passing
-- [ ] Governance report generated
-- [ ] PR template completed with evidence
-
-## Detailed Lab Guides
-
-| Lab | Guide |
-|-----|-------|
-| Angular Foundations | [angular/foundations/README.md](angular/foundations/README.md) |
-| Angular Governance | [angular/governance/README.md](angular/governance/README.md) |
-| Java Foundations | [java/foundations/README.md](java/foundations/README.md) |
-| Java Governance | [java/governance/README.md](java/governance/README.md) |
-
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| Copilot not following instructions | Ensure `.github/instructions/` files are committed |
-| Custom agents not appearing | Restart VS Code, check `.github/agents/` exists |
-| Angular build fails | Run `npm ci` to clean install dependencies |
-| Java build fails | Ensure JDK 17+ and Maven 3.9+ are installed |
-| Scripts fail on Windows | Use WSL2 or Git Bash |
-
-## Additional Resources
-
-### Angular
-- [Angular Security Guide](https://angular.io/guide/security)
-- [OWASP Angular Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Angular_Security_Cheat_Sheet.html)
-- [RxJS Best Practices](https://rxjs.dev/guide/operators)
-
-### Java
-- [Spring Boot Reference](https://docs.spring.io/spring-boot/docs/current/reference/html/)
-- [Spring Security Guide](https://docs.spring.io/spring-security/reference/index.html)
-- [OWASP Java Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Java_Security_Cheat_Sheet.html)
-
-### General
-- [GitHub Copilot Documentation](https://docs.github.com/copilot)
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
+The app serves **http://localhost:8080** (login page → dashboard). The baseline is green; the two security tests you write during the lab are the only ones that should go red before remediation.
 
 ---
 
-### GitHub Copilot Chat - Quick Reference Note
+## The 90-minute flow at a glance
 
-> `#` variables and `@` participants → VS Code only.
->
-> Slash commands (`/explain`, `/fix`, `/tests`, `/doc`, `/simplify`) → available in both VS Code and IntelliJ.
+One continuous flow, six stages (times sum to 90). Run `/hand-off` at the **end of every stage**.
 
-IntelliJ does not support `#codebase`, `#file`, `#selection`, `#terminalLastCommand`, or any `@workspace` / `@github` / `@terminal` participants. IntelliJ automatically includes the open file as context without requiring explicit syntax.
+| # | Stage | Min | Copilot surface |
+|---|-------|-----|-----------------|
+| 1 | Setup, Comprehend & Register | 30 | Built-in `/explain` (per file) |
+| 2 | Plan | 12 | `java-planning` → `java-validation` |
+| 3 | Security Test Generation (top 2) | 14 | `/tests` (V1), `java-testing` (V2) |
+| 4 | Remediation (top 2 only) | 20 | Agent ↔ `java-need-review` |
+| 5 | Secure-Future Implementation | 8 | `java-planning` → `java-validation` |
+| 6 | Governance Validation & Reporting | 6 | `java-testing` → `java-summarizer` |
 
----
-
-### Maven Setup & Troubleshooting
-
-#### Prerequisites
-
-You will need **Visual Studio Code** (or another IDE) and **Maven** installed on your machine.
-
-- If Maven is not installed, you can install it from the **Company Portal**.
-- Please see this [guide](https://confluence.fmr.com/spaces/AP140884/pages/2358092473/Setup+Maven+Settings.xml+File) to ensure your `settings.xml` file is set up properly before running any Maven commands.
-
-
-#### Verify your setup
-
-```bash
-java -version    # Should show 17 or higher
-mvn -version     # Should show Maven 3.9 or higher
-```
+**Red → Green:** the security tests assert *secure* behavior, so they **fail before remediation** — that failure is the proof the vulnerability is real. Two reds are expected at the Stage 3 checkpoint; everything else stays green.
 
 ---
 
-**Happy Learning!** Document every assumption, surface evidence for each fix, and keep the audit trail up to date.
+## Where to go next
+
+- **`LAB_ACTION_GUIDE.md`** — the single source of truth: full stage-by-stage actions, the red→green checkpoint, and ready-to-paste Copilot prompt templates for every step.
+
+### Live-filled artifacts
+| File | Filled during |
+|------|---------------|
+| `VULNERABILITIES.md` | Stage 1 (prioritized register) |
+| `docs/plans/plan.md` | Stage 2 (created by `java-planning`) |
+| `FIXES.md` | Stage 4 (one row per remediated slice) |
+| `docs/secure-features-guide.md` | Stage 5 |
+| `docs/workflow-tracker.md` | every stage (via `/hand-off`) |
+
+### Facilitator reference
+- **`docs/FACILITATOR_KEY.md`** — the full vulnerability answer key. **Facilitators only.**
+
+---
+
+## Copilot Chat quick reference
+
+> `#` variables and `@` participants → VS Code only. Slash commands (`/explain`, `/fix`, `/tests`, `/doc`, `/simplify`) → available in both VS Code and IntelliJ.
+
+---
+
+*Copyright © 2025 InRhythm, Inc. and Arula.AI. All Rights Reserved. Licensed for use by authorized participants of Arula.AI training programs only — see [LICENSE](LICENSE).*
